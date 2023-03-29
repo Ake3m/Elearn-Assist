@@ -1,20 +1,46 @@
+//global variables
+let currentAssignment="";
+let newAssignment={};
 const navBar=document.querySelector("div#content");
 const newButton=document.createElement("button");
-newButton.innerHTML="Track this assignment";
 
+
+newButton.innerHTML="Track this assignment";
 navBar.prepend(newButton);
 
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
+    const {type, assignmentID}=request;
+    if(type==="NEW")
+    {
+       currentAssignment=assignmentID;
+       console.log(currentAssignment);
+    }
+});
+
+
+
+
+
+
 newButton.addEventListener('click', ()=>{
+   
+    //get name
+    const nav_links=document.querySelectorAll("li.first");
+    const length=nav_links.length;
+    let name_of_assignment=nav_links[length-1].textContent;
+    name_of_assignment=name_of_assignment.substring(5).trim();
+
+    //get course name
+    let course_name=nav_links[1].textContent;
+    course_name=course_name.substring(5).trim();
+    console.log(course_name);
     const rows=document.querySelectorAll('tr');
+
+     //get the due date
     for(let row of rows)
     {
-        //get name
-        const nav_links=document.querySelectorAll("li.first");
-        const length=nav_links.length;
-        let name_of_assignment=nav_links[length-1].textContent;
-        name_of_assignment=name_of_assignment.substring(5).trim();
-        //get the due date
+       
         if(row.childElementCount===2)
         {
             if(row.children[0].textContent.includes("Due date"))
@@ -25,16 +51,21 @@ newButton.addEventListener('click', ()=>{
                 const [day,date,time]= due_date.split(',').map((word)=>{
                     return word.trim();
                 });
-                const newAssignment={
-                    name:name_of_assignment,
-                    day:day,
-                    date:date,
-                    time:time
+                newAssignment={
+                    name_of_course: course_name,
+                    name_of_assignment:name_of_assignment,
+                    due_day:day,
+                    due_date:date,
+                    due_time:time
                 }
-                console.log(newAssignment);
+                
+                chrome.runtime.onMessage.addListener((response, sendResponse)=>{
+                    console.log(response);
+                })
             }
         }
        
     }
+    console.log(newAssignment);
 })
 
