@@ -1,0 +1,21 @@
+{
+    "manifest_version":3,
+    "name": "NDHU Assignment Assist",
+    "description": "Enables students to see their active assignments as well as their due dates.",
+    "version":"1.0",
+    "icons":{
+        "16": "images/icon-16.png",
+        "32": "images/icon-32.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+    },
+    "content_scripts":[
+        {
+            "js":["scripts/content.js"],
+            "matches":[
+            "http://www.elearn.ndhu.edu.tw/moodle/course/view.php?id=*",
+            "http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=*"
+            ]
+        }
+    ]
+}
