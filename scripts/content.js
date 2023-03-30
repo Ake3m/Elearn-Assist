@@ -21,8 +21,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
     }
 });
 
-//yoooo
-console.log("loL");
+
 
 newButton.addEventListener('click', ()=>{
    
@@ -84,7 +83,6 @@ newButton.addEventListener('click', ()=>{
     const assignmentJson=JSON.stringify(newAssignment);
     console.log(assignmentJson);
 
-    //test comment
     if(date_flag){
         chrome.storage.local.get(currentAssignment).then((result)=>{
             if(result[currentAssignment])
@@ -102,3 +100,4 @@ newButton.addEventListener('click', ()=>{
         alert("Unable to track assignment: Due date has passed");
     }
 })
+//git
