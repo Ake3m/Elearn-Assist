@@ -26,13 +26,21 @@ body{
 
 .header{
 display:flex;
-justify-content: space-around;
+justify-content: center;
 }
 
 .header img{
     width:60px;
     height:60px;
+    display: inline-block;
     margin:10px;
+    vertical-align: middle;
+}
+
+.header h1{
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 h1,h2{
