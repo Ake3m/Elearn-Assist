@@ -21,7 +21,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
     }
 });
 
-
+//yoooo
+console.log("loL");
 
 newButton.addEventListener('click', ()=>{
    
@@ -83,7 +84,7 @@ newButton.addEventListener('click', ()=>{
     const assignmentJson=JSON.stringify(newAssignment);
     console.log(assignmentJson);
 
-    if(flag){
+    if(test_flag){
         chrome.storage.local.get(currentAssignment).then((result)=>{
             if(result[currentAssignment])
             {
