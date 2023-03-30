@@ -12,6 +12,8 @@ body{
     align-items: center;
 }
 
+
+
 #content-area{
     width:70%;
     height:80%;
@@ -19,9 +21,8 @@ body{
     border-radius: 15px;
     box-shadow: 0px 10px 10px rgb(213, 210, 210);
     padding:20px;
-
+    
 }
-
 
 .header{
 display:flex;
@@ -53,6 +54,8 @@ h1,h2{
     box-shadow: 0px 2px 10px rgb(213, 210, 210);
     transform:scale(1.01);
 }
+
+
 
 a{
     text-decoration: none;
