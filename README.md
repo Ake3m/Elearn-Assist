@@ -1,5 +1,5 @@
 # NDHU Elearning Assignment Assistant
-Description: A Google Chrome Extension for the National Dong Hwa University(NDHU) Elearning that helps manage assignments and provides notifications of upcoming assignment due dates.
+Description: A Google Chrome Extension for the National Dong Hwa University (NDHU) Elearning website that helps manage assignments and provides notifications regarding upcoming assignment due dates.
 
 Date started: 28th March, 2023.
 
