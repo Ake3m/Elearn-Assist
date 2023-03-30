@@ -2,6 +2,21 @@
     margin:0;
     padding:0;
 }
-header{
-    background-color: rgb(232, 243, 232);
+
+
+body{
+    background: rgb(243,243,243);
+    background: linear-gradient(0deg, rgba(243,243,243,1) 0%, rgba(208,253,178,1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#content-area{
+    width:70%;
+    height:80%;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 10px 10px rgb(213, 210, 210);
+
 }
