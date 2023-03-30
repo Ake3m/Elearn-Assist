@@ -1,6 +1,7 @@
 //global variables
 let currentAssignment="";
 let newAssignment={};
+let date_flag = 1;
 
 //DOM objects
 const navBar=document.querySelector("div#content");
@@ -19,10 +20,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
        console.log(currentAssignment);
     }
 });
-
-
-
-
 
 
 newButton.addEventListener('click', ()=>{
@@ -53,6 +50,18 @@ newButton.addEventListener('click', ()=>{
                 const [day,date,time]= due_date.split(',').map((word)=>{
                     return word.trim();
                 });
+                
+                // checks due date for assignment
+                const date_and_time = date+", "+time; 
+                const today = new Date(); 
+                const due_date2 = new Date(date_and_time); 
+                console.log(today); 
+                console.log(due_date2);
+                if (today>due_date2){ 
+                    date_flag = 0;
+                }
+
+
                 newAssignment={
                     name_of_course: course_name,
                     name_of_assignment:name_of_assignment,
@@ -73,16 +82,20 @@ newButton.addEventListener('click', ()=>{
     const assignmentJson=JSON.stringify(newAssignment);
     console.log(assignmentJson);
 
-    chrome.storage.local.get(currentAssignment).then((result)=>{
-        if(result[currentAssignment])
-        {
-            console.log("Data already stored");
-        }
-        else{
-           chrome.storage.local.set({[currentAssignment]:assignmentJson}).then(()=>{
-                console.log("Data should be stored")
-           }) 
-        }
-    })
+    if(flag){
+        chrome.storage.local.get(currentAssignment).then((result)=>{
+            if(result[currentAssignment])
+            {
+                console.log("Data already stored");
+            }
+            else{
+            chrome.storage.local.set({[currentAssignment]:assignmentJson}).then(()=>{
+                    console.log("Data should be stored")
+            }) 
+            }
+        })
+    }
+    else{ 
+        alert("Unable to track assignment: Due date has passed");
+    }
 })
-
