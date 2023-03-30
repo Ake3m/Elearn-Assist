@@ -15,11 +15,47 @@ chrome.tabs.onUpdated.addListener((tabId,changeInfo,tab) => {//added changeInfo 
 });
 
 chrome.action.onClicked.addListener(async (tab) => {
+    
+    //check for old dates and removes them
+    chrome.storage.local.get(null, (assignments)=>{
+        for(let id in assignments)
+        {
+            let assignmentObj=JSON.parse(assignments[id]);
+            const date_and_time = assignmentObj['due_date']+", "+assignmentObj['due_time']; 
+            const today = new Date(); 
+            const due_date = new Date(date_and_time);
+            console.log(today);
+            console.log(due_date);
+            if(today>due_date){
+                chrome.storage.local.remove(id,function(){
+                    var error = chrome.runtime.lastError;
+                       if (error) {
+                           console.error(error);
+                       }
+                })
+            }
+        }
+    })
+
+    // //clear local storage
+    // chrome.storage.local.clear(function() {
+    //     var error = chrome.runtime.lastError;
+    //     if (error) {
+    //         console.error(error);
+    //     }
+    //     // do something more
+    // });
+    // chrome.storage.sync.clear(); // callback is optional
+
+    //opens the window
     chrome.windows.create({
         url: chrome.runtime.getURL("popup.html"),
         type: "popup",
         width: 800,
         height: 600
       });
+
+
+    
 });
 
