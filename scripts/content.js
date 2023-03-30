@@ -83,7 +83,7 @@ newButton.addEventListener('click', ()=>{
     const assignmentJson=JSON.stringify(newAssignment);
     console.log(assignmentJson);
 
-    if(flag){
+    if(date_flag){
         chrome.storage.local.get(currentAssignment).then((result)=>{
             if(result[currentAssignment])
             {
