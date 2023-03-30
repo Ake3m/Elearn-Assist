@@ -21,6 +21,7 @@ body{
     border-radius: 15px;
     box-shadow: 0px 10px 10px rgb(213, 210, 210);
     padding:20px;
+    box-sizing: border-box;
     
 }
 
@@ -54,17 +55,28 @@ h1,h2{
     border-left:5px solid rgb(18, 227, 88);
     margin-bottom: 10px;
     padding-left:10px;
+    padding-right:10px;
     text-decoration: none;
     color:black;
+    box-sizing: border-box;
 }
 .assignment-container:hover{
     background-color: rgb(244, 239, 239);
     box-shadow: 0px 2px 10px rgb(213, 210, 210);
-    transform:scale(1.01);
+    border-left:5px solid rgb(26, 194, 0);
+    /* transform:scale(1.01); removing due to weird bug. fix later*/
 }
 
-
+.upcoming-assignments{
+    max-height:60%;
+    overflow: auto;
+    /* overflow-x: hidden; */
+   
+}
 
 a{
     text-decoration: none;
+}
+::-webkit-scrollbar {
+    width: 5px; /*to make the scrollbar invisible*/
 }
