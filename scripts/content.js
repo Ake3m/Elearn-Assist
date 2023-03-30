@@ -1,6 +1,8 @@
 //global variables
 let currentAssignment="";
 let newAssignment={};
+
+//DOM objects
 const navBar=document.querySelector("div#content");
 const newButton=document.createElement("button");
 
@@ -67,5 +69,20 @@ newButton.addEventListener('click', ()=>{
        
     }
     console.log(newAssignment);
+    //convert the object to json
+    const assignmentJson=JSON.stringify(newAssignment);
+    console.log(assignmentJson);
+
+    chrome.storage.local.get(currentAssignment).then((result)=>{
+        if(result[currentAssignment])
+        {
+            console.log("Data already stored");
+        }
+        else{
+           chrome.storage.local.set({[currentAssignment]:assignmentJson}).then(()=>{
+                console.log("Data should be stored")
+           }) 
+        }
+    })
 })
 

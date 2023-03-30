@@ -13,3 +13,13 @@ chrome.tabs.onUpdated.addListener((tabId,changeInfo,tab) => {//added changeInfo 
     }
     
 });
+
+chrome.action.onClicked.addListener(async (tab) => {
+    chrome.windows.create({
+        url: chrome.runtime.getURL("popup.html"),
+        type: "popup",
+        width: 800,
+        height: 600
+      });
+});
+
