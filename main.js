@@ -13,7 +13,8 @@ chrome.storage.local.get(null, (assignments)=>{
     let assignment_due_date=document.createElement("p");
     //filling the new objects with the data
     assignment_link.href=`${base_url}${id}`;
-    assignment_div_header.textContent=`Assignment name:${assignmentObj['name_of_course']}-${assignmentObj['name_of_assignment']}`;
+    assignment_link.target="_blank";
+    assignment_div_header.textContent=`${assignmentObj['name_of_course']}-${assignmentObj['name_of_assignment']}`;
     assignment_due_date.textContent=`Date due: ${assignmentObj['due_date']}, ${assignmentObj['due_day']}, ${assignmentObj['due_time']}`;
     //placing items inside the div
     assignment_div.append(assignment_div_header);

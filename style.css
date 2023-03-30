@@ -45,9 +45,15 @@ h1,h2{
     border-left:5px solid rgb(18, 227, 88);
     margin-bottom: 10px;
     padding-left:10px;
+    text-decoration: none;
+    color:black;
 }
 .assignment-container:hover{
     background-color: rgb(244, 239, 239);
     box-shadow: 0px 2px 10px rgb(213, 210, 210);
     transform:scale(1.01);
+}
+
+a{
+    text-decoration: none;
 }
