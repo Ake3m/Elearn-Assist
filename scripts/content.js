@@ -23,11 +23,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
 
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> b5a178d26d3cbb001a4e23ea47aa9917be586ed3
 newButton.addEventListener('click', ()=>{
    
     //get name
