@@ -34,8 +34,7 @@
         {
             "js":["scripts/content.js"],
             "matches":[
-            "http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=*",
-            "http://www.elearn.ndhu.edu.tw/moodle/course/view.php?id=*"
+            "http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=*"
             ]
         }
     ]
