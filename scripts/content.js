@@ -54,7 +54,7 @@ newButton.addEventListener("click", () => {
 
         console.log(today.getTime());
         const difference_in_milliseconds=formatted_deadline_date.getTime()-today.getTime(); //gets the difference in time in milliseconds
-        const diffInMinutes=diffInMs/60000; //converts it to minutes
+        const diffInMinutes=difference_in_milliseconds/60000; //converts it to minutes
         
         //gets the minutes for 1 day before, 12 hours before and 1 hour before.
         one_day_before=diffInMinutes-1440;//1140 minutes in a day
