@@ -95,23 +95,8 @@ newButton.addEventListener("click", () => {
               console.log("Data should be stored");
             });
             //adds alarms to create notification in the background.js at a specific time.
-            //checks each to ensure there is specific
-            let responseString="You will be reminded:\n" 
-            if(one_day_before>0)
-            {
-              chrome.alarms.create(`${newAssignment.name_of_assignment}.24`,{delayInMinutes:one_day_before});
-              responseString+="1 day before due\n"
-            }
-            if(twelve_hours_before>0){
-              chrome.alarms.create(`${newAssignment.name_of_assignment}.12`,{delayInMinutes:twelve_hours_before});
-              responseString+="12 hours before due\n"
-            }
-            if(one_hour_before>0)
-            {
-              chrome.alarms.create(`${newAssignment.name_of_assignment}.1`,{delayInMinutes:one_hour_before});
-              responseString+="1 hour before due\n"
-            }
-            alert(`Assignment Tracked Sucessfully.\n${responseString}`);
+            chrome.runtime.sendMessage({type:"NEW_ASSIGNMENT", data:newAssignment.name_of_assignment, reminders:{one_day_before,twelve_hours_before,one_day_before}});
+            alert("Assignment Tracked Sucessfully.");
         }
       });
     } else {

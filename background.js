@@ -61,8 +61,8 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 //alarm listener
 chrome.alarms.onAlarm.addListener((alarm)=>{
-    let assignment_name=alarm["name"].split('.')[0];
-    let assignment_hour=parseInt(alarm["name"].split('.')[1]);
+    let assignment_name=alarm["name"].split(':')[0];
+    let assignment_hour=parseInt(alarm["name"].split(':')[1]);
     let message=`${assignment_name} is due in `;
     if(assignment_hour >1)
     {
@@ -79,5 +79,27 @@ chrome.alarms.onAlarm.addListener((alarm)=>{
         button:[{title:'Dismiss'}],
         priority:0
     })
+})
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
+    if(message.type==="NEW_ASSIGNMENT")
+    {
+        const {data, reminders}=message;
+        const {name_of_assignment}=data;
+
+        if (reminders.one_day_before > 0) {
+            chrome.alarms.create(`${name_of_assignment}-24`, { delayInMinutes: reminders.one_day_before });
+          }
+          if (reminders.twelve_hours_before > 0) {
+            chrome.alarms.create(`${name_of_assignment}-12`, { delayInMinutes: reminders.twelve_hours_before });
+          }
+          if (reminders.one_hour_before > 0) {
+            chrome.alarms.create(`${name_of_assignment}-1`, { delayInMinutes: reminders.one_hour_before });
+          }
+      
+          // Respond to the content script to acknowledge that the message was received
+          console.log("New assignment received and alarms created");
+          sendResponse("New assignment received and alarms created.");
+    }
 })
 
