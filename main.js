@@ -22,7 +22,7 @@ chrome.storage.local.get(null, (assignments)=>{
     //adding the div to the container
     upcoming_assignments.append(assignment_div);
    //adding event listener to open new window instead of using an href. On Double click, open assignment elearning page.
-    assignment_div.addEventListener('dblclick',()=>{
+    assignment_div.addEventListener('click',()=>{
       window.open(`${base_url}${id}`,'_blank');
     });
 
