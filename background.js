@@ -24,8 +24,8 @@ chrome.action.onClicked.addListener(async (tab) => {
             const date_and_time = assignmentObj['due_date']+", "+assignmentObj['due_time']; 
             const today = new Date(); 
             const due_date = new Date(date_and_time);
-            console.log(today);
-            console.log(due_date);
+            // console.log(today);
+            // console.log(due_date);
             if(today>due_date){
                 chrome.storage.local.remove(id,function(){
                     var error = chrome.runtime.lastError;
