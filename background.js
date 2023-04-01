@@ -59,3 +59,25 @@ chrome.action.onClicked.addListener(async (tab) => {
     
 });
 
+//alarm listener
+chrome.alarms.onAlarm.addListener((alarm)=>{
+    let assignment_name=alarm["name"].split('.')[0];
+    let assignment_hour=parseInt(alarm["name"].split('.')[1]);
+    let message=`${assignment_name} is due in `;
+    if(assignment_hour >1)
+    {
+        message+=`${assignment_hour} hours`
+    }
+    else{
+        message+=`${assignment_hour} hour`
+    }
+    chrome.notifications.create({
+        type:'basic',
+        iconUrl:'./imaages/ndhu-logo.png',
+        title:'Assignment Assistant',
+        message:message,
+        button:[{title:'Dismiss'}],
+        priority:0
+    })
+})
+

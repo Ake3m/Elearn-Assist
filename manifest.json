@@ -20,7 +20,7 @@
             "128": "images/icon-128.png"
           }
     },
-    "permissions":["tabs","storage","activeTab"],
+    "permissions":["tabs","storage","activeTab","alarms","notifications"],
     "host_permissions": [
         "http://www.elearn.ndhu.edu.tw/*"
       ],

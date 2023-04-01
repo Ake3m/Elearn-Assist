@@ -3,6 +3,9 @@ let currentAssignment = "";
 let newAssignment = {};
 let date_flag = true;
 let due_date_found = false;
+let one_day_before=0;
+let twelve_hours_before=0;
+let one_hour_before=0;
 
 //DOM objects
 const navBar = document.querySelector("div#content");
@@ -47,10 +50,18 @@ newButton.addEventListener("click", () => {
         // checks due date for assignment
         const date_and_time = date + ", " + time;
         const today = new Date();
-        const due_date2 = new Date(date_and_time);
-        console.log(today);
-        console.log(due_date2);
-        if (today > due_date2) {
+        const formatted_deadline_date = new Date(date_and_time);
+
+        console.log(today.getTime());
+        const difference_in_milliseconds=formatted_deadline_date.getTime()-today.getTime(); //gets the difference in time in milliseconds
+        const diffInMinutes=diffInMs/60000; //converts it to minutes
+        
+        //gets the minutes for 1 day before, 12 hours before and 1 hour before.
+        one_day_before=diffInMinutes-1440;//1140 minutes in a day
+        twelve_hours_before=diffInMinutes-720;//720 minutes in 12 hours
+        one_hour_before=diffInMinutes-60; //60 minutes in an hour
+
+        if (today > formatted_deadline_date) {
           date_flag = false;
         }
 
@@ -72,15 +83,35 @@ newButton.addEventListener("click", () => {
     console.log(assignmentJson);
 
     if (date_flag) {
+      //check if assignment is already in storage
       chrome.storage.local.get(currentAssignment).then((result) => {
         if (result[currentAssignment]) {
           console.log("Data already stored");
         } else {
+          //if not already in storage, adds it to storage
           chrome.storage.local
             .set({ [currentAssignment]: assignmentJson })
             .then(() => {
               console.log("Data should be stored");
             });
+            //adds alarms to create notification in the background.js at a specific time.
+            //checks each to ensure there is specific
+            let responseString="You will be reminded:\n" 
+            if(one_day_before>0)
+            {
+              chrome.alarms.create(`${newAssignment.name_of_assignment}.24`,{delayInMinutes:one_day_before});
+              responseString+="1 day before due\n"
+            }
+            if(twelve_hours_before>0){
+              chrome.alarms.create(`${newAssignment.name_of_assignment}.12`,{delayInMinutes:twelve_hours_before});
+              responseString+="12 hours before due\n"
+            }
+            if(one_hour_before>0)
+            {
+              chrome.alarms.create(`${newAssignment.name_of_assignment}.1`,{delayInMinutes:one_hour_before});
+              responseString+="1 hour before due\n"
+            }
+            alert(`Assignment Tracked Sucessfully.\n${responseString}`);
         }
       });
     } else {
