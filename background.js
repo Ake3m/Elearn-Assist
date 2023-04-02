@@ -61,8 +61,11 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 //alarm listener
 chrome.alarms.onAlarm.addListener((alarm)=>{
-    let assignment_name=alarm["name"].split(':')[0];
-    let assignment_hour=parseInt(alarm["name"].split(':')[1]);
+    console.log(alarm["name"]);
+    let assignment_name=alarm["name"].substring(0,alarm["name"].length-2);
+    let assignment_hour=parseInt(alarm["name"].substring(alarm["name"].length-2));
+    console.log(assignment_name);
+    console.log(assignment_hour);
     let message=`${assignment_name} is due in `;
     if(assignment_hour >1)
     {
@@ -71,12 +74,13 @@ chrome.alarms.onAlarm.addListener((alarm)=>{
     else{
         message+=`${assignment_hour} hour`
     }
+    console.log(message);
     chrome.notifications.create({
         type:'basic',
-        iconUrl:'./imaages/ndhu-logo.png',
+        iconUrl:'images/ndhu-logo.png',
         title:'Assignment Assistant',
         message:message,
-        button:[{title:'Dismiss'}],
+        buttons:[{title:'Dismiss'}],
         priority:0
     })
 })
@@ -85,17 +89,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     if(message.type==="NEW_ASSIGNMENT")
     {
         const {data, reminders}=message;
-        const {name_of_assignment}=data;
+        console.log(data);
+        console.log(reminders);
 
         if (reminders.one_day_before > 0) {
-            chrome.alarms.create(`${name_of_assignment}-24`, { delayInMinutes: reminders.one_day_before });
+            chrome.alarms.create(`${data}24`, { delayInMinutes: reminders.one_day_before });
           }
           if (reminders.twelve_hours_before > 0) {
-            chrome.alarms.create(`${name_of_assignment}-12`, { delayInMinutes: reminders.twelve_hours_before });
+            chrome.alarms.create(`${data}12`, { delayInMinutes: reminders.twelve_hours_before });
           }
           if (reminders.one_hour_before > 0) {
-            chrome.alarms.create(`${name_of_assignment}-1`, { delayInMinutes: reminders.one_hour_before });
+            chrome.alarms.create(`${data}01`, { delayInMinutes: reminders.one_hour_before });
           }
+
+          //uncomment below to test the notification functionality
+        //   chrome.alarms.create(`${data}10`,{delayInMinutes:1});
       
           // Respond to the content script to acknowledge that the message was received
           console.log("New assignment received and alarms created");

@@ -8,7 +8,7 @@ Date started: 28th March, 2023.
 
 - [Tyler Eck](https://github.com/Tylereck81)
 
-- [Astrid Adhipurusa ](https://github.com/scarstreet)
+- [Astrid Adhipurusa](https://github.com/scarstreet)
 
 ## How to install
 To install the extension, do the following: 
@@ -27,6 +27,9 @@ To install the extension, do the following:
 
 Once installed, a new button will be added to the [NDHU Elearning](http://www.elearn.ndhu.edu.tw/moodle/index.php?lang=en_utf8) website for assignment pages with the words "Track this assignment". This will give the extension the ability to record the assignment in Google Chrome storage and provide the user with notifications when the assignment deadline approaches, ensuring they do not forget.
 
+Before:
+![image](https://user-images.githubusercontent.com/25711110/229331704-732849f1-545c-4e39-a056-af1a914d0807.png)
+After:
 ![image](https://user-images.githubusercontent.com/25711110/228928754-e535891d-985a-4f19-9a26-582bc8869c50.png)
 
 ## The Graphical User Interface
@@ -34,6 +37,11 @@ Once tracked, the assignment will appear in the extension's popup user interface
 An example of this can be seen below:
 
 ![image](https://user-images.githubusercontent.com/25711110/228929019-7cba939b-dd6d-48c5-bbf9-01798e347156.png)
+
+
+## Notifications
+The current notification scheme is set to remind users, 24 hours, 12 hours and 1 hour before their tracked assignment is due. The notification will look as follows:
+![image](https://user-images.githubusercontent.com/25711110/229331506-0ebf5a33-301e-4d15-bc94-a3b279b5a47a.png)
 
 ## Functionality and Features that has been added so far
 - Make button appear in the [NDHU Elearning](http://www.elearn.ndhu.edu.tw/moodle/index.php?lang=en_utf8) website's assignment pages.

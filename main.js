@@ -1,6 +1,11 @@
 const upcoming_assignments=document.querySelector(".upcoming-assignments");
 let base_url="http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=";
 
+//uncomment below to clear all alarms and notifications. Will remove later
+
+// chrome.alarms.clearAll((wasCleared)=>{
+//   console.log(wasCleared);
+// });
 
 chrome.storage.local.get(null, (assignments)=>{
    for(let id in assignments)

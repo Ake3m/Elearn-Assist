@@ -95,7 +95,7 @@ newButton.addEventListener("click", () => {
               console.log("Data should be stored");
             });
             //adds alarms to create notification in the background.js at a specific time.
-            chrome.runtime.sendMessage({type:"NEW_ASSIGNMENT", data:newAssignment.name_of_assignment, reminders:{one_day_before,twelve_hours_before,one_day_before}});
+            chrome.runtime.sendMessage({type:"NEW_ASSIGNMENT", data:newAssignment["name_of_assignment"], reminders:{one_day_before,twelve_hours_before,one_day_before}});
             alert("Assignment Tracked Sucessfully.");
         }
       });
@@ -107,4 +107,3 @@ newButton.addEventListener("click", () => {
     alert("This assignment does not have a due date.");
   }
 });
-//git
