@@ -45,7 +45,6 @@ chrome.storage.local.get(null, (assignments) => {
 
     // variables to detect slideDelete events
     assignment_div_slider.style.position = "relative";
-    const originLeft = assignment_div_slider.style.left;
     let [assignmentDown, deleteVisible, startX, endX, scrollLeft] = [
       false,
       false,
@@ -60,7 +59,6 @@ chrome.storage.local.get(null, (assignments) => {
       if (parseInt(assignment_div_slider.style.left) <= -100) {
         clearInterval(autoInterval);
         deleteVisible = true;
-        console.log('DELETE VISIBLE '+deleteVisible)
       } else {
         assignment_div_slider.style.left =
           parseInt(assignment_div_slider.style.left) - 1 + "px";
@@ -75,7 +73,6 @@ chrome.storage.local.get(null, (assignments) => {
       }
     };
     const resetSlideDelete = () => {
-      console.log("resetSlide");
       autoInterval = setInterval(autoReturnPosition, 5);
       assignmentDown = false;
       deleteVisible = false;
@@ -107,20 +104,12 @@ chrome.storage.local.get(null, (assignments) => {
       }
       if (startX - e.pageX < 101 && startX - e.pageX >= 0) {
         assignment_div_slider.style.left = -(startX - e.pageX) + "px";
-        console.log(
-          `moved ${
-            endX - parseInt(assignment_div_slider.style.left) > 0
-              ? "left"
-              : "right"
-          } by ${startX - e.pageX}px from original`
-        );
       }
       endX = parseInt(assignment_div_slider.style.left);
     });
 
     //adding event listener to open new window instead of using an href. On Double click, open assignment elearning page.
     assignment_div.addEventListener("mouseup", () => {
-      console.log(startX, endX)
       if(startX == undefined) window.open(`${base_url}${id}`, "_blank");
       else {
         if (!deleteVisible)
