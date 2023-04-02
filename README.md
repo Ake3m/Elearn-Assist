@@ -64,4 +64,6 @@ The current notification scheme is set to remind users, 24 hours, 12 hours and 1
 - Implement a downdown timer for each assignment to display in the Graphical User Interface. (May or may not do)
 - Group each assignment by course name and display them in sections
 - Once an assignment is deleted, the alarms also need to be deleted.
+- Multi-language support?
+- Dark Mode?
 - Any other feture that might be helpful. 
