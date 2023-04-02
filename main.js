@@ -35,6 +35,7 @@ chrome.storage.local.get(null, (assignments)=>{
     //temporary delete functionality
     assignment_div.addEventListener('contextmenu',(e)=>{
       e.preventDefault();
+      console.dir(e);
       if(confirm("Are you sure you want to delete this assignment?")){
         chrome.storage.local.remove(id,()=>{
             alert("Assignment has been removed");

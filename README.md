@@ -53,7 +53,7 @@ The current notification scheme is set to remind users, 24 hours, 12 hours and 1
 - Load and display assignment information in Extensions Graphical User Interface.
 - Allow for scrolling of assignments in the Extension's Graphical User Interface.
 - Added hover effect for each assignment.
-- Manually delete an assignment from the Graphical User Interface. (Single Right click).
+- Manually delete an assignment from the Graphical User Interface. (Single Right click)Eventually will change to slide and delete.
 - Provide the user with a notification when the due date for an assignment draws near.
 
 ## Functionality and Features that need to be added (TODO)
@@ -63,4 +63,5 @@ The current notification scheme is set to remind users, 24 hours, 12 hours and 1
 - Make an options page to allow user's to configure notification settings, such as when they should be notified (eg. 2 days before, 1 day before, 5 hours before, etc) as well as notification frequency.
 - Implement a downdown timer for each assignment to display in the Graphical User Interface. (May or may not do)
 - Group each assignment by course name and display them in sections
+- Once an assignment is deleted, the alarms also need to be deleted.
 - Any other feture that might be helpful. 
