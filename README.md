@@ -41,6 +41,7 @@ An example of this can be seen below:
 
 ## Notifications
 The current notification scheme is set to remind users, 24 hours, 12 hours and 1 hour before their tracked assignment is due. The notification will look as follows:
+
 ![image](https://user-images.githubusercontent.com/25711110/229331506-0ebf5a33-301e-4d15-bc94-a3b279b5a47a.png)
 
 ## Functionality and Features that has been added so far
