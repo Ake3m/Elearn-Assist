@@ -40,72 +40,104 @@ chrome.storage.local.get(null, (assignments) => {
 
     //adding the div to the container
     upcoming_assignments.append(assignment_div_wrapper);
-    //adding event listener to open new window instead of using an href. On Double click, open assignment elearning page.
-    assignment_div.addEventListener("mouseup", () => {
-      resetSlideDelete();
-      // TODO - UNCOMMENT LATER
-      // window.open(`${base_url}${id}`, "_blank");
-    });
 
     // TODO - delete on slide for assignment_div
 
     // variables to detect slideDelete events
     assignment_div_slider.style.position = "relative";
     const originLeft = assignment_div_slider.style.left;
-    let [assignmentDown, startX, scrollLeft] = [false, null, null];
+    let [assignmentDown, deleteVisible, startX, endX, scrollLeft] = [
+      false,
+      false,
+      undefined,
+      undefined,
+      undefined,
+    ];
 
     //functions for slide delete
-    const autoShowDelete = () => {};
-    const autoReturnPosition = async () => {
-      console.log("returning...");
-      console.log(`${assignment_div_slider.style.left} to ${0}`);
-      while (assignment_div_slider.style.left != "0px") {
+    let autoInterval = null;
+    const autoShowDelete = () => {
+      if (parseInt(assignment_div_slider.style.left) <= -100) {
+        clearInterval(autoInterval);
+        deleteVisible = true;
+        console.log('DELETE VISIBLE '+deleteVisible)
+      } else {
+        assignment_div_slider.style.left =
+          parseInt(assignment_div_slider.style.left) - 1 + "px";
+      }
+    };
+    const autoReturnPosition = () => {
+      if (parseInt(assignment_div_slider.style.left) >= 0)
+        clearInterval(autoInterval);
+      else {
         assignment_div_slider.style.left =
           parseInt(assignment_div_slider.style.left) + 1 + "px";
-        console.log(assignment_div_slider.style.left);
       }
     };
     const resetSlideDelete = () => {
-      console.log("noMoreSlide");
-      autoReturnPosition();
+      console.log("resetSlide");
+      autoInterval = setInterval(autoReturnPosition, 5);
       assignmentDown = false;
-      startX = null;
-      scrollLeft = null;
+      deleteVisible = false;
+      endX = undefined;
+      startX = undefined;
+      scrollLeft = undefined;
+    };
+    const assignmentReleased = () => {
+      if (!assignmentDown) return;
+      assignmentDown = false;
+      if (endX <= -50) {
+        autoInterval = setInterval(autoShowDelete, 5);
+      } else {
+        resetSlideDelete();
+      }
     };
 
-    assignment_div_slider.addEventListener("mousedown", (e) => {
+    // adding the event listeners
+    assignment_div.addEventListener("mousedown", (e) => {
       if (!assignmentDown) {
         assignmentDown = true;
       }
     });
-    assignment_div_slider.addEventListener("mouseleave", (e) => {
+    assignment_div.addEventListener("mouseleave", assignmentReleased());
+    assignment_div.addEventListener("mousemove", (e) => {
       if (!assignmentDown) return;
-      resetSlideDelete();
-    });
-    assignment_div_slider.addEventListener("mousemove", (e) => {
-      if (!assignmentDown) return;
-      if (startX == null) {
+      if (startX == undefined) {
         startX = e.pageX;
       }
-      //decrease == left, increase == right
-      // positive == left, negative == right
-      if (startX - e.pageX >= 0 && startX - e.pageX < 100) {
-        assignment_div_slider.style.left =
-          originLeft - (startX - e.pageX) + "px";
-        console.log(`MOVE LEFT BY ${originLeft - (startX - e.pageX) + "px"}`);
-      } else {
-        console.log("move right");
+      if (startX - e.pageX < 101 && startX - e.pageX >= 0) {
+        assignment_div_slider.style.left = -(startX - e.pageX) + "px";
+        console.log(
+          `moved ${
+            endX - parseInt(assignment_div_slider.style.left) > 0
+              ? "left"
+              : "right"
+          } by ${startX - e.pageX}px from original`
+        );
+      }
+      endX = parseInt(assignment_div_slider.style.left);
+    });
+
+    //adding event listener to open new window instead of using an href. On Double click, open assignment elearning page.
+    assignment_div.addEventListener("mouseup", () => {
+      console.log(startX, endX)
+      if(startX == undefined) window.open(`${base_url}${id}`, "_blank");
+      else {
+        if (!deleteVisible)
+          assignmentReleased();
+        else
+          resetSlideDelete()
       }
     });
 
     //temporary delete functionality
-    assignment_div.addEventListener("contextmenu", (e) => {
+    delete_button.addEventListener("click", (e) => {
       e.preventDefault();
       console.dir(e);
       if (confirm("Are you sure you want to delete this assignment?")) {
         chrome.storage.local.remove(id, () => {
           alert("Assignment has been removed");
-          assignment_div.style.display = "none";
+          assignment_div_wrapper.style.display = "none";
         });
       }
     });
