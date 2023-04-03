@@ -2,15 +2,54 @@ const upcoming_assignments = document.querySelector(".upcoming-assignments");
 let base_url =
   "http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=";
 
-//uncomment below to clear all alarms and notifications. Will remove later
 
-// chrome.alarms.clearAll((wasCleared)=>{
-//   console.log(wasCleared);
-// });
+//gets assignments from local storage and stores it in sorted_assignments list
+//change to arrow function
+const getAssignments=()=> {
+  return new Promise((resolve, reject) => {
+    let sorted_assignments = [];
+    chrome.storage.local.get(null, (assignments) =>{ 
+      for(let id in assignments){ 
+        let assignmentsObj = JSON.parse(assignments[id]); 
+        const date_and_time = String(assignmentsObj['due_date']+", "+assignmentsObj['due_time']); 
+        let temp = {
+          id: id,
+          date: date_and_time, 
+          name: assignmentsObj['name_of_course'],
+          data: assignments[id],
+        };
+        sorted_assignments.push(temp);
+      }
+      //sorts array by date
+      sorted_assignments.sort((a,b)=>{
+        return new Date(a.date) - new Date(b.date);
+      });
+      resolve(sorted_assignments); //after d is gotten from local storage
+    });
+  });
+}
 
-chrome.storage.local.get(null, (assignments) => {
-  for (let id in assignments) {
-    let assignmentObj = JSON.parse(assignments[id]); //converts the JSON to object;
+//after function runs, the sorted_assignments will be sorted by date and displayed
+getAssignments().then((sorted_assignments) => {
+
+  // //sorts the array by name
+  //  d.sort(function(a,b){
+  //   if(a.name>b.name){ 
+  //     return 1; 
+  //   }
+  //   else{
+  //     return -1;
+  //   }
+  // });
+
+  let i = 0; 
+  while( i < sorted_assignments.length){ 
+    //id of each assignment 
+    let id = sorted_assignments[i].id;
+    //the JSON string of each assignment 
+    let assignment = sorted_assignments[i].data;
+    
+    let assignmentObj=JSON.parse(assignment);//converts the JSON to object;
     console.log(assignmentObj);
     //creating html elements for the object properties
     let assignment_div_wrapper = document.createElement("div");
@@ -130,6 +169,14 @@ chrome.storage.local.get(null, (assignments) => {
         });
       }
     });
+
+
+    i++;
   }
+
 });
+
+ 
+
+
 
