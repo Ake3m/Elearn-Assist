@@ -35,7 +35,7 @@ chrome.action.onClicked.addListener(async (tab) => {
                 })
             }
         }
-    })
+    });
 
     // //clear local storage
     // chrome.storage.local.clear(function() {
