@@ -70,6 +70,7 @@ h1,h2{
     box-sizing: border-box;
     border-radius:5px ;
     border-left:5px solid rgb(18, 227, 88);
+    user-select: none;
     
 }
 
