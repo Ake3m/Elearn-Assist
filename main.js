@@ -135,7 +135,9 @@ getAssignments().then((sorted_assignments) => {
         assignmentDown = true;
       }
     });
-    assignment_div.addEventListener("mouseleave", assignmentReleased());
+    assignment_div.addEventListener("mouseleave", (e) => {
+      assignmentReleased()
+    });
     assignment_div.addEventListener("mousemove", (e) => {
       if (!assignmentDown) return;
       if (startX == undefined) {
