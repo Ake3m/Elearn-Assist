@@ -14,8 +14,14 @@ chrome.tabs.onUpdated.addListener((tabId,changeInfo,tab) => {//added changeInfo 
     
 });
 
+//flag used to determine if window is open
+var windowOpenFlag = false;
 chrome.action.onClicked.addListener(async (tab) => {
     
+
+    //NOT A PROBLEM YET, BUTTTTT maybe we should apply the same Promise logic as in main.js
+    //to prevent any problems when displaying the data
+
     //check for old dates and removes them
     chrome.storage.local.get(null, (assignments)=>{
         for(let id in assignments)
@@ -35,26 +41,30 @@ chrome.action.onClicked.addListener(async (tab) => {
         }
     });
 
-    // //clear local storage
-    // chrome.storage.local.clear(function() {
-    //     var error = chrome.runtime.lastError;
-    //     if (error) {
-    //         console.error(error);
-    //     }
-    //     // do something more
-    // });
-    // chrome.storage.sync.clear(); // callback is optional
+    //checks if a window is not already open
+    if(windowOpenFlag == false){ 
+        windowOpenFlag = true;
+        //creates window and opens it
+        chrome.windows.create({
+            url: chrome.runtime.getURL("popup.html"),
+            type: "popup",
+            width: 800,
+            height: 600
+        }, function(win){ 
+            windowOpenFlag = win.id;
+        });
+    }else if(typeof windowOpenFlag == 'number'){ 
+        //pop window comes to the front
+        chrome.windows.update(windowOpenFlag,{focused:true});
+    }
+});
 
-    //opens the window
-    chrome.windows.create({
-        url: chrome.runtime.getURL("popup.html"),
-        type: "popup",
-        width: 800,
-        height: 600
-      });
 
-
-    
+//when window is deleted, we change flag back to false
+chrome.windows.onRemoved.addListener(function(winID){ 
+    if(windowOpenFlag == winID){ 
+        windowOpenFlag = false;
+    }
 });
 
 //alarm listener
