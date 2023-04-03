@@ -48,22 +48,56 @@ h1,h2{
     margin:20px;
 }
 
-.assignment-container{
+.assignment-wrapper {
     width:100%;
-    height:auto;
-    background-color: rgb(251, 248, 248);
-    border-left:5px solid rgb(18, 227, 88);
+    border-radius: 5px;
     margin-bottom: 10px;
+    background-color: rgb(251, 248, 248);
+    transition: all .3s;
+}
+
+.assignment-slider {
+    display: flex;
+    width: calc(100% + 100px);
+    flex-direction: row;
+}
+
+.assignment-container {
     padding:10px;
+    width: 100%;
     text-decoration: none;
     color:black;
     box-sizing: border-box;
-    border-radius: 5px;
+    border-radius:5px ;
+    border-left:5px solid rgb(18, 227, 88);
+    
 }
+
 .assignment-container:hover{
+    border-left:5px solid rgb(26, 194, 0);
+}
+.assignment-wrapper:hover {
     background-color: rgb(244, 239, 239);
     box-shadow: 0px 2px 10px rgb(213, 210, 210);
-    border-left:5px solid rgb(26, 194, 0);
+    
+}
+
+.assignment-delete {
+    width: 100px;
+    height: auto;
+    text-align: center;
+    font-style: oblique;
+    font-weight: bold;
+    background-color: rgb(255, 38, 38);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: white;
+    border: 0px;
+
+    transition: all .3s;
+}
+.assignment-delete:hover {
+    background-color: rgb(168, 0, 0);
 }
 
 .upcoming-assignments{
