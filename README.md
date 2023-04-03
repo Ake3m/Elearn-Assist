@@ -1,5 +1,5 @@
 # NDHU Elearning Assignment Assistant
-Description: A Google Chrome Extension for the National Dong Hwa University (NDHU) Elearning website that helps manage assignments and provides notifications regarding upcoming assignment due dates.
+Description: A Google Chrome Extension for the National Dong Hwa University (NDHU) [Elearning](http://www.elearn.ndhu.edu.tw/moodle/index.php?lang=en_utf8) website that helps manage assignments and provides notifications regarding upcoming assignment due dates.
 
 Date started: 28th March, 2023.
 
@@ -33,10 +33,18 @@ After:
 ![image](https://user-images.githubusercontent.com/25711110/228928754-e535891d-985a-4f19-9a26-582bc8869c50.png)
 
 ## The Graphical User Interface
-Once tracked, the assignment will appear in the extension's popup user interface; that can be accessed by clicking the icon under the extensions dropdown (for convenience, pin the extension for easy access). From this interface, the user can see all their tracked assignments, delete tracked assignments and mark them as complete to remove it from the list. As mentioned before, any assignment that is tracked here would issue a notification to the user once the deadline is near. 
+Once tracked, the assignment will appear in the extension's popup user interface; that can be accessed by clicking the icon under the extensions dropdown (for convenience, pin the extension for easy access). From this interface, the user can see all their tracked assignments, delete tracked assignments to remove it from the list. As mentioned before, any assignment that is tracked here would issue a notification to the user once the deadline is near. 
 An example of this can be seen below:
 
-![image](https://user-images.githubusercontent.com/25711110/228929019-7cba939b-dd6d-48c5-bbf9-01798e347156.png)
+![image](https://user-images.githubusercontent.com/25711110/229470329-cf673fa8-01a2-4c21-a41e-bbc6e20ffc9b.png)
+
+### Convenient Assignment Uploading
+Tracked assignments offer convenience in the sense that with a single click, you will be taken to that particular assignment's upload page.
+
+### Completing or Deleting Assignments
+If you have completed an assignment and you no longer want to receive notifications regarding it, you can delete the completed assignment from the list. To do so, gently swipe to the left with your mouse which will reveal a delete button. Press the delete button in order to remove the assignment from the list. 
+
+![image](https://user-images.githubusercontent.com/25711110/229470567-ce1f7a89-5efb-417a-ab09-ff875c76e588.png)
 
 
 ## Notifications
@@ -53,17 +61,14 @@ The current notification scheme is set to remind users, 24 hours, 12 hours and 1
 - Load and display assignment information in Extensions Graphical User Interface.
 - Allow for scrolling of assignments in the Extension's Graphical User Interface.
 - Added hover effect for each assignment.
-- Manually delete an assignment from the Graphical User Interface. (Single Right click)Eventually will change to slide and delete.
-- Provide the user with a notification when the due date for an assignment draws near.
+- Manually delete an assignment from the Graphical User Interface. (Slide in order to delete)
+- Provide the user with a notification when the due date for an assignment draws near (Currently reminds users 24 hours, 12 hours and 1 hour before the due date).
+- Once an assignment is deleted, the alarms also need to be deleted.
 
 ## Functionality and Features that need to be added (TODO)
-- ~~Manually delete an assignment from the Graphical User Interface. (Either button or slide to delete).~~
-- Allow user to mark an assignment as complete and remove it from the tracked assignments list. (May or may not do)
-- ~~Provide the user with a notification when the due date for an assignment draws near.~~
-- Make an options page to allow user's to configure notification settings, such as when they should be notified (eg. 2 days before, 1 day before, 5 hours before, etc) as well as notification frequency.
+- Make an options page to allow user's to configure notification settings, such as when they should be notified (eg. 2 days before, 1 day before, 5 hours before, etc) as well as notification frequency. (May or may not do)
 - Implement a downdown timer for each assignment to display in the Graphical User Interface. (May or may not do)
-- Group each assignment by course name and display them in sections
-- Once an assignment is deleted, the alarms also need to be deleted.
+- Group each assignment by course name and display them in sections (May or may not do)
 - Multi-language support?
 - Dark Mode?
 - Any other feture that might be helpful. 
