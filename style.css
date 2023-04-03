@@ -1,6 +1,9 @@
 *{
     margin:0;
     padding:0;
+
+    --green:rgb(18, 227, 88);
+    --green-active:rgb(26, 194, 0);
 }
 
 
@@ -70,13 +73,13 @@ h1,h2{
     color:black;
     box-sizing: border-box;
     border-radius:5px ;
-    border-left:5px solid rgb(18, 227, 88);
+    border-left:5px solid var(--green);
     user-select: none;
     
 }
 
 .assignment-container:hover{
-    border-left:5px solid rgb(26, 194, 0);
+    border-left:5px solid var(--green-active);
 }
 .assignment-wrapper:hover {
     background-color: rgb(244, 239, 239);
@@ -107,7 +110,6 @@ h1,h2{
     max-height:60%;
     overflow: auto;
     overflow-x: hidden;
-   
 }
 
 a{
