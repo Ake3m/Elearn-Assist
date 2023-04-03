@@ -144,7 +144,7 @@ getAssignments().then((sorted_assignments) => {
         startX = e.pageX;
       }
       const move = -(startX - e.pageX) + "px";
-      console.log(move+` || assignmentDown ${assignmentDown}, deleteVisible ${deleteVisible}, startX ${startX}, endX ${endX}, scrollLeft ${scrollLeft}`)
+      // console.log(move+` || assignmentDown ${assignmentDown}, deleteVisible ${deleteVisible}, startX ${startX}, endX ${endX}, scrollLeft ${scrollLeft}`)
       if(-(startX - e.pageX)>= 0) {
         assignment_div_slider.style.left = 0+ "px"
       }
@@ -176,6 +176,25 @@ getAssignments().then((sorted_assignments) => {
         chrome.storage.local.remove(id, () => {
           alert("Assignment has been removed");
           assignment_div_wrapper.style.display = "none";
+        });
+        //clear the alarms that are associated with the deleted assignment
+        chrome.alarms.clear(`${id}24`,(wasCleared)=>{
+            if(wasCleared)
+            {
+              console.log(`Alarm: ${id}24 was cleared.`);
+            }
+        });
+        chrome.alarms.clear(`${id}12`,(wasCleared)=>{
+            if(wasCleared)
+            {
+              console.log(`Alarm: ${id}12 was cleared.`);
+            }
+        });
+        chrome.alarms.clear(`${id}01`,(wasCleared)=>{
+            if(wasCleared)
+            {
+              console.log(`Alarm: ${id}01 was cleared`);
+            }
         });
       }
     });
