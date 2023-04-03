@@ -54,6 +54,7 @@ h1,h2{
     margin-bottom: 10px;
     background-color: rgb(251, 248, 248);
     transition: all .3s;
+    cursor: pointer;
 }
 
 .assignment-slider {
@@ -94,7 +95,8 @@ h1,h2{
     border-bottom-right-radius: 5px;
     color: white;
     border: 0px;
-
+    user-select: none;
+    cursor: pointer;
     transition: all .3s;
 }
 .assignment-delete:hover {
@@ -104,7 +106,7 @@ h1,h2{
 .upcoming-assignments{
     max-height:60%;
     overflow: auto;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
    
 }
 
