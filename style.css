@@ -4,12 +4,13 @@
 
     --green:rgb(18, 227, 88);
     --green-active:rgb(26, 194, 0);
+    --background-gradient:linear-gradient(0deg, rgba(243,243,243,1) 0%, rgba(208,253,178,1) 100%);
 }
 
 
 body{
     background: rgb(243,243,243);
-    background: linear-gradient(0deg, rgba(243,243,243,1) 0%, rgba(208,253,178,1) 100%);
+    background: var(--background-gradient);
     display: flex;
     justify-content: center;
     align-items: center;
