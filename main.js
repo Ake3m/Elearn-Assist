@@ -3,6 +3,7 @@ let base_url="http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=";
 
 var d = [];
 
+console.log("lol1");
 chrome.storage.local.get(null, (assignments) =>{ 
   for(let id in assignments){ 
     let assignmentsObj = JSON.parse(assignments[id]); 
@@ -14,25 +15,33 @@ chrome.storage.local.get(null, (assignments) =>{
       data: assignments[id],
     };
 
-    d.push(c);
-    d.sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return new Date(a.date)- new Date(b.date);
-    });
-    console.log(d);
+    console.log("lol2");
 
+    d.push(c);
+  
   }
 });
 
+console.log("lol3");
+d.sort(function(a,b){
+  // Turn your strings into dates, and then subtract them
+  // to get a value that is either negative, positive, or zero.
+  console.log("lol4");
+  return new Date(a.date)- new Date(b.date);
+});
 
-let i = 0; 
-while( i < d.length){ 
-  let id = d[i][id]; 
-  let assignmentObj=JSON.parse(d[data]);//converts the JSON to object;
-  console.log(assignmentObj);
-  i++;
-}
+console.log("lol5");
+
+console.log(d);
+
+
+// let i = 0; 
+// while( i < d.length){ 
+//   let id = d[i][id]; 
+//   let assignmentObj=JSON.parse(d[data]);//converts the JSON to object;
+//   console.log(assignmentObj);
+//   i++;
+// }
 
 
 
