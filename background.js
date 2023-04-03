@@ -53,7 +53,7 @@ chrome.action.onClicked.addListener(async (tab) => {
         }, function(win){ 
             windowOpenFlag = win.id;
         });
-    }else if(typeof windowOpenFlag == 'number'){ 
+    }else if(typeof windowOpenFlag === 'number'){ 
         //pop window comes to the front
         chrome.windows.update(windowOpenFlag,{focused:true});
     }
