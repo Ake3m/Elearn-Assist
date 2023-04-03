@@ -143,8 +143,16 @@ getAssignments().then((sorted_assignments) => {
       if (startX == undefined) {
         startX = e.pageX;
       }
-      if (startX - e.pageX < 101 && startX - e.pageX >= 0) {
-        assignment_div_slider.style.left = -(startX - e.pageX) + "px";
+      const move = -(startX - e.pageX) + "px";
+      console.log(move+` || assignmentDown ${assignmentDown}, deleteVisible ${deleteVisible}, startX ${startX}, endX ${endX}, scrollLeft ${scrollLeft}`)
+      if(-(startX - e.pageX)>= 0) {
+        assignment_div_slider.style.left = 0+ "px"
+      }
+      else if(-(startX - e.pageX)<= -100) {
+        assignment_div_slider.style.left = -100+ "px"
+      }
+      else {
+        assignment_div_slider.style.left = move
       }
       endX = parseInt(assignment_div_slider.style.left);
     });
