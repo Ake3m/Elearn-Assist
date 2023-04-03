@@ -52,7 +52,6 @@ h1,h2{
     width:100%;
     border-radius: 5px;
     margin-bottom: 10px;
-    border-left:5px solid rgb(18, 227, 88);
     background-color: rgb(251, 248, 248);
     transition: all .3s;
 }
@@ -69,11 +68,18 @@ h1,h2{
     text-decoration: none;
     color:black;
     box-sizing: border-box;
+    border-radius:5px ;
+    border-left:5px solid rgb(18, 227, 88);
+    
+}
+
+.assignment-container:hover{
+    border-left:5px solid rgb(26, 194, 0);
 }
 .assignment-wrapper:hover {
     background-color: rgb(244, 239, 239);
     box-shadow: 0px 2px 10px rgb(213, 210, 210);
-    border-left:5px solid rgb(26, 194, 0);
+    
 }
 
 .assignment-delete {
@@ -81,8 +87,10 @@ h1,h2{
     height: auto;
     text-align: center;
     font-style: oblique;
-    font-size: small;
+    font-weight: bold;
     background-color: rgb(255, 38, 38);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     color: white;
     border: 0px;
 
