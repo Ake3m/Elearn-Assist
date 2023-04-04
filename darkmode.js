@@ -1,6 +1,6 @@
 let isDarkMode;
 
-const setDarkMode = (nowDarkMode) => {
+const setDarkMode = async (nowDarkMode) => {
   const body = document.querySelector("body");
   const toIcon = document.querySelector(
     nowDarkMode ? ".sun-icon" : ".moon-icon"
@@ -14,19 +14,27 @@ const setDarkMode = (nowDarkMode) => {
   toIcon.classList.add("active-theme");
   nowIcon.classList.remove("active-theme");
 
-  chrome.storage.local.set({ darkmode: !nowDarkMode });
+  await chrome.storage.local.set({ darkmode: !nowDarkMode }).then(async () => {
+    await getDarkMode()
+  });
 
   return !nowDarkMode;
 };
 
 const getDarkMode = async () => {
   await chrome.storage.local.get(["darkmode"]).then(async (res) => {
-    if (res.key == undefined) {
+    if (res.darkmode == undefined) {
       await chrome.storage.local.set({ darkmode: false }).then(() => {
         isDarkMode = false;
       });
     } else {
       isDarkMode = res.darkmode;
+      if(isDarkMode) {
+        document.querySelector("body").classList.add("dark")
+        document.querySelector(".moon-icon").classList.add("active-theme")
+      } else {
+        document.querySelector(".sun-icon").classList.add("active-theme");
+      }
     }
   });
   console.log("darkmode "+isDarkMode)
@@ -34,11 +42,6 @@ const getDarkMode = async () => {
 
 const darkModeOption = async () => {
   getDarkMode();
-  const moonIcon = document.querySelector(".moon-icon");
-  const sunIcon = document.querySelector(".sun-icon");
-  isDarkMode
-    ? moonIcon.classList.add("active-theme")
-    : sunIcon.classList.add("active-theme");
   const toggle = document.querySelector(".toggle-dark-mode");
   toggle.addEventListener("click", async () => {
     console.log("BEFORE "+isDarkMode)
