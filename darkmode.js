@@ -1,8 +1,8 @@
-const localStoreDarkMode=()=>{
+const setDarkMode= async (currentDarkMode)=>{
 
 }
 
-const darkModeOption= async ()=>{
+const getDarkMode = async()=>{
     let isDarkMode = null;
     await chrome.storage.local.get(["darkmode"]).then(async(res)=>{
         if(res.key == undefined) {
@@ -13,9 +13,14 @@ const darkModeOption= async ()=>{
             isDarkMode = res.key;
         }
     })
-    await chrome.storage.local.get(["darkmode"]).then(async(res)=>{
-        console.log(res.darkmode)
-    })
+    return isDarkMode
+}
+
+const darkModeOption= async ()=>{
+    let isDarkMode = getDarkMode()
+    const moonIcon = document.querySelector(".moon-icon")
+    const sunIcon = document.querySelector(".sun-icon")
+    isDarkMode ? moonIcon.classList.add('active-theme') : sunIcon.classList.add('active-theme')
 }
 
 darkModeOption()

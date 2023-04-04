@@ -16,7 +16,12 @@ body{
     align-items: center;
 }
 
-
+.moon-icon, .sun-icon {
+    display: none;
+}
+.active-theme {
+    display: block;
+}
 
 #content-area{
     width:70%;
