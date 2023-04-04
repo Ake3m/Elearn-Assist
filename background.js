@@ -17,7 +17,6 @@ chrome.tabs.onUpdated.addListener((tabId,changeInfo,tab) => {//added changeInfo 
 //flag used to determine if window is open
 var windowOpenFlag = false;
 chrome.action.onClicked.addListener(async (tab) => {
-    
 
     //NOT A PROBLEM YET, BUTTTTT maybe we should apply the same Promise logic as in main.js
     //to prevent any problems when displaying the data
@@ -42,7 +41,7 @@ chrome.action.onClicked.addListener(async (tab) => {
     });
 
     //checks if a window is not already open
-    if(windowOpenFlag == false){ 
+    if(windowOpenFlag === false){ 
         windowOpenFlag = true;
         //creates window and opens it
         chrome.windows.create({
@@ -57,6 +56,8 @@ chrome.action.onClicked.addListener(async (tab) => {
         //pop window comes to the front
         chrome.windows.update(windowOpenFlag,{focused:true});
     }
+
+    console.log(windowOpenFlag);
 });
 
 
