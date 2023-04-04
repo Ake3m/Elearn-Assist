@@ -2,14 +2,14 @@ const upcoming_assignments = document.querySelector(".upcoming-assignments");
 let base_url =
   "http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=";
 
-
 //gets assignments from local storage and stores it in sorted_assignments list
 //change to arrow function
 const getAssignments=()=> {
   return new Promise((resolve, reject) => {
     let sorted_assignments = [];
-    chrome.storage.local.get(null, (assignments) =>{ 
-      for(let id in assignments){ 
+    chrome.storage.local.get(null, (assignments) =>{
+      for(let id in assignments){
+        if(id=='darkmode') continue;
         let assignmentsObj = JSON.parse(assignments[id]); 
         const date_and_time = String(assignmentsObj['due_date']+", "+assignmentsObj['due_time']); 
         let temp = {
