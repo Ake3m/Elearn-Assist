@@ -14,8 +14,13 @@ chrome.tabs.onUpdated.addListener((tabId,changeInfo,tab) => {//added changeInfo 
     
 });
 
+
+let windowOpenFlag = 0; 
 chrome.action.onClicked.addListener(async (tab) => {
-    
+
+    //NOT A PROBLEM YET, BUTTTTT maybe we should apply the same Promise logic as in main.js
+    //to prevent any problems when displaying the data
+
     //check for old dates and removes them
     chrome.storage.local.get(null, (assignments)=>{
         for(let id in assignments)
@@ -35,27 +40,39 @@ chrome.action.onClicked.addListener(async (tab) => {
         }
     });
 
-    // //clear local storage
-    // chrome.storage.local.clear(function() {
-    //     var error = chrome.runtime.lastError;
-    //     if (error) {
-    //         console.error(error);
-    //     }
-    //     // do something more
-    // });
-    // chrome.storage.sync.clear(); // callback is optional
+    //checks all windows tabs to see if the pop.html url is active in any of them 
+    chrome.windows.getAll({populate : true}, function (window_list) {
+        var windowCheckFlag = true;
+        for(var i=0;i<window_list.length;i++) {
+            var tabs = window_list[i].tabs; 
+            for(var j = 0; j<tabs.length; j++){ 
+                if (tabs[j].url == chrome.runtime.getURL("popup.html")){ 
+                    chrome.windows.update(window_list[i].id,{focused: true});
+                    windowCheckFlag = false;
+                    break;
+                }
+            }
+        }
+        
+        //if it can't find a window, it will create it
+        if (windowCheckFlag){ 
+            chrome.windows.create({
+                url: chrome.runtime.getURL("popup.html"),
+                type: "popup",
+                width: 800,
+                height: 600,
+            });
+        }
 
-    //opens the window
-    chrome.windows.create({
-        url: chrome.runtime.getURL("popup.html"),
-        type: "popup",
-        width: 800,
-        height: 600
-      });
+    });
+    
+        
 
 
     
+
 });
+
 
 //alarm listener
 chrome.alarms.onAlarm.addListener((alarm)=>{
