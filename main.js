@@ -137,14 +137,14 @@ getAssignments().then((sorted_assignments) => {
     });
     assignment_div.addEventListener("mouseleave", (e) => {
       assignmentReleased()
-    });
+    }); 
     assignment_div.addEventListener("mousemove", (e) => {
       if (!assignmentDown) return;
       if (startX == undefined) {
         startX = e.pageX;
       }
       const move = -(startX - e.pageX) + "px";
-      // console.log(move+` || assignmentDown ${assignmentDown}, deleteVisible ${deleteVisible}, startX ${startX}, endX ${endX}, scrollLeft ${scrollLeft}`)
+      console.log(move+` || assignmentDown ${assignmentDown}, deleteVisible ${deleteVisible}, startX ${startX}, endX ${endX}, scrollLeft ${scrollLeft}`)
       if(-(startX - e.pageX)>= 0) {
         assignment_div_slider.style.left = 0+ "px"
       }
@@ -159,7 +159,31 @@ getAssignments().then((sorted_assignments) => {
 
     //adding event listener to open new window instead of using an href. On Double click, open assignment elearning page.
     assignment_div.addEventListener("mouseup", () => {
-      if(startX == undefined) window.open(`${base_url}${id}`, "_blank");
+      if(startX == undefined) { 
+        let page_url = `${base_url}${id}`;
+
+        chrome.windows.getAll({populate : true}, function (window_list) {
+          var windowCheckFlag = true;
+          for(var i=0;i<window_list.length;i++) {
+              var tabs = window_list[i].tabs; 
+              for(var j = 0; j<tabs.length; j++){ 
+                  if (tabs[j].url == page_url){
+                      chrome.tabs.update(tabs[j].id, {selected: true});
+                      chrome.windows.update(window_list[i].id,{focused: true});
+                      windowCheckFlag = false;
+                      break;
+                  }
+              }
+          }
+          
+          //if it can't find a window, it will create it
+          if (windowCheckFlag){ 
+            window.open(`${base_url}${id}`, "_blank");
+          }
+  
+      });
+
+      }
       else {
         if (!deleteVisible)
           assignmentReleased();
@@ -176,25 +200,6 @@ getAssignments().then((sorted_assignments) => {
         chrome.storage.local.remove(id, () => {
           alert("Assignment has been removed");
           assignment_div_wrapper.style.display = "none";
-        });
-        //clear the alarms that are associated with the deleted assignment
-        chrome.alarms.clear(`${id}24`,(wasCleared)=>{
-            if(wasCleared)
-            {
-              console.log(`Alarm: ${id}24 was cleared.`);
-            }
-        });
-        chrome.alarms.clear(`${id}12`,(wasCleared)=>{
-            if(wasCleared)
-            {
-              console.log(`Alarm: ${id}12 was cleared.`);
-            }
-        });
-        chrome.alarms.clear(`${id}01`,(wasCleared)=>{
-            if(wasCleared)
-            {
-              console.log(`Alarm: ${id}01 was cleared`);
-            }
         });
       }
     });
