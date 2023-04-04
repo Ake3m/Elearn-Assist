@@ -2,6 +2,14 @@ const upcoming_assignments = document.querySelector(".upcoming-assignments");
 let base_url =
   "http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=";
 
+  //function to remove all the assignment containers
+const removeContainers=()=>{
+  const containers=document.querySelectorAll('.assignment-wrapper');
+
+  containers.forEach(container=>{
+    container.remove();
+  })
+}
 //gets assignments from local storage and stores it in sorted_assignments list
 //change to arrow function
 const getAssignments = () => {
@@ -30,6 +38,9 @@ const getAssignments = () => {
   });
 };
 
+//new function to trigger the display
+const triggerDisplay=()=>{
+//calls getAssignments function here
 //after function runs, the sorted_assignments will be sorted by date and displayed
 getAssignments().then((sorted_assignments) => {
   // //sorts the array by name
@@ -216,4 +227,16 @@ getAssignments().then((sorted_assignments) => {
     i++;
   }
 });
+}
 
+//call to run everything above
+triggerDisplay();
+
+//receives mesage from background.js to updateTheDisplay
+chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
+  if(request.message==="updateDisplay")
+  {
+    removeContainers();
+    triggerDisplay();
+  }
+})

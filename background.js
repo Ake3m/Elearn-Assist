@@ -126,3 +126,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     }
 })
 
+
+//in the event the storage object is changed, then it should automatically update the GUI
+chrome.storage.onChanged.addListener((changes, areaName)=>{
+    const changedAssignmentID=Object.keys(changes)[0];
+    console.log(changedAssignmentID);
+    if(changes[changedAssignmentID].newValue)//if an object with this key exists, then something was added to storage
+    {
+        //pass message to main.js to update the display
+        chrome.runtime.sendMessage({
+            message:"updateDisplay"
+        })
+    }
+    
+})  
+
