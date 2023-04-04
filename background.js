@@ -14,8 +14,8 @@ chrome.tabs.onUpdated.addListener((tabId,changeInfo,tab) => {//added changeInfo 
     
 });
 
-//flag used to determine if window is open
-var windowOpenFlag = false;
+
+let windowOpenFlag = 0; 
 chrome.action.onClicked.addListener(async (tab) => {
 
     //NOT A PROBLEM YET, BUTTTTT maybe we should apply the same Promise logic as in main.js
@@ -40,33 +40,39 @@ chrome.action.onClicked.addListener(async (tab) => {
         }
     });
 
-    //checks if a window is not already open
-    if(windowOpenFlag === false){ 
-        windowOpenFlag = true;
-        //creates window and opens it
-        chrome.windows.create({
-            url: chrome.runtime.getURL("popup.html"),
-            type: "popup",
-            width: 800,
-            height: 600
-        }, function(win){ 
-            windowOpenFlag = win.id;
-        });
-    }else if(typeof windowOpenFlag === 'number'){ 
-        //pop window comes to the front
-        chrome.windows.update(windowOpenFlag,{focused:true});
-    }
+    //checks all windows tabs to see if the pop.html url is active in any of them 
+    chrome.windows.getAll({populate : true}, function (window_list) {
+        var windowCheckFlag = true;
+        for(var i=0;i<window_list.length;i++) {
+            var tabs = window_list[i].tabs; 
+            for(var j = 0; j<tabs.length; j++){ 
+                if (tabs[j].url == chrome.runtime.getURL("popup.html")){ 
+                    chrome.windows.update(window_list[i].id,{focused: true});
+                    windowCheckFlag = false;
+                    break;
+                }
+            }
+        }
+        
+        //if it can't find a window, it will create it
+        if (windowCheckFlag){ 
+            chrome.windows.create({
+                url: chrome.runtime.getURL("popup.html"),
+                type: "popup",
+                width: 800,
+                height: 600,
+            });
+        }
 
-    console.log(windowOpenFlag);
+    });
+    
+        
+
+
+    
+
 });
 
-
-//when window is deleted, we change flag back to false
-chrome.windows.onRemoved.addListener(function(winID){ 
-    if(windowOpenFlag == winID){ 
-        windowOpenFlag = false;
-    }
-});
 
 //alarm listener
 chrome.alarms.onAlarm.addListener((alarm)=>{
