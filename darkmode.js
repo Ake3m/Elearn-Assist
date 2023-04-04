@@ -9,7 +9,6 @@ const setDarkMode = async (nowDarkMode) => {
     nowDarkMode ? ".moon-icon" : ".sun-icon"
   );
 
-  console.log("nowDarkMode "+nowDarkMode)
   nowDarkMode ? body.classList.remove(["dark"]) : body.classList.add(["dark"]);
   toIcon.classList.add("active-theme");
   nowIcon.classList.remove("active-theme");
@@ -37,14 +36,12 @@ const getDarkMode = async () => {
       }
     }
   });
-  console.log("darkmode "+isDarkMode)
 };
 
 const darkModeOption = async () => {
   getDarkMode();
   const toggle = document.querySelector(".toggle-dark-mode");
   toggle.addEventListener("click", async () => {
-    console.log("BEFORE "+isDarkMode)
     isDarkMode = setDarkMode(isDarkMode);
   });
 };
