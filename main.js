@@ -2,54 +2,54 @@ const upcoming_assignments = document.querySelector(".upcoming-assignments");
 let base_url =
   "http://www.elearn.ndhu.edu.tw/moodle/mod/assignment/view.php?id=";
 
-
 //gets assignments from local storage and stores it in sorted_assignments list
 //change to arrow function
-const getAssignments=()=> {
+const getAssignments = () => {
   return new Promise((resolve, reject) => {
     let sorted_assignments = [];
-    chrome.storage.local.get(null, (assignments) =>{ 
-      for(let id in assignments){ 
-        let assignmentsObj = JSON.parse(assignments[id]); 
-        const date_and_time = String(assignmentsObj['due_date']+", "+assignmentsObj['due_time']); 
+    chrome.storage.local.get(null, (assignments) => {
+      for (let id in assignments) {
+        let assignmentsObj = JSON.parse(assignments[id]);
+        const date_and_time = String(
+          assignmentsObj["due_date"] + ", " + assignmentsObj["due_time"]
+        );
         let temp = {
           id: id,
-          date: date_and_time, 
-          name: assignmentsObj['name_of_course'],
+          date: date_and_time,
+          name: assignmentsObj["name_of_course"],
           data: assignments[id],
         };
         sorted_assignments.push(temp);
       }
       //sorts array by date
-      sorted_assignments.sort((a,b)=>{
+      sorted_assignments.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
       });
       resolve(sorted_assignments); //after d is gotten from local storage
     });
   });
-}
+};
 
 //after function runs, the sorted_assignments will be sorted by date and displayed
 getAssignments().then((sorted_assignments) => {
-
   // //sorts the array by name
   //  d.sort(function(a,b){
-  //   if(a.name>b.name){ 
-  //     return 1; 
+  //   if(a.name>b.name){
+  //     return 1;
   //   }
   //   else{
   //     return -1;
   //   }
   // });
 
-  let i = 0; 
-  while( i < sorted_assignments.length){ 
-    //id of each assignment 
+  let i = 0;
+  while (i < sorted_assignments.length) {
+    //id of each assignment
     let id = sorted_assignments[i].id;
-    //the JSON string of each assignment 
+    //the JSON string of each assignment
     let assignment = sorted_assignments[i].data;
-    
-    let assignmentObj=JSON.parse(assignment);//converts the JSON to object;
+
+    let assignmentObj = JSON.parse(assignment); //converts the JSON to object;
     console.log(assignmentObj);
     //creating html elements for the object properties
     let assignment_div_wrapper = document.createElement("div");
@@ -136,8 +136,8 @@ getAssignments().then((sorted_assignments) => {
       }
     });
     assignment_div.addEventListener("mouseleave", (e) => {
-      assignmentReleased()
-    }); 
+      assignmentReleased();
+    });
     assignment_div.addEventListener("mousemove", (e) => {
       if (!assignmentDown) return;
       if (startX == undefined) {
@@ -145,50 +145,43 @@ getAssignments().then((sorted_assignments) => {
       }
       const move = -(startX - e.pageX) + "px";
       //console.log(move+` || assignmentDown ${assignmentDown}, deleteVisible ${deleteVisible}, startX ${startX}, endX ${endX}, scrollLeft ${scrollLeft}`)
-      if(-(startX - e.pageX)>= 0) {
-        assignment_div_slider.style.left = 0+ "px"
-      }
-      else if(-(startX - e.pageX)<= -100) {
-        assignment_div_slider.style.left = -100+ "px"
-      }
-      else {
-        assignment_div_slider.style.left = move
+      if (-(startX - e.pageX) >= 0) {
+        assignment_div_slider.style.left = 0 + "px";
+      } else if (-(startX - e.pageX) <= -100) {
+        assignment_div_slider.style.left = -100 + "px";
+      } else {
+        assignment_div_slider.style.left = move;
       }
       endX = parseInt(assignment_div_slider.style.left);
     });
 
     //adding event listener to open new window instead of using an href. On Double click, open assignment elearning page.
     assignment_div.addEventListener("mouseup", () => {
-      if(startX == undefined) { 
+      if (startX == undefined) {
         let page_url = `${base_url}${id}`;
 
-        chrome.windows.getAll({populate : true}, function (window_list) {
+        chrome.windows.getAll({ populate: true }, function (window_list) {
           var windowCheckFlag = true;
-          for(var i=0;i<window_list.length;i++) {
-              var tabs = window_list[i].tabs; 
-              for(var j = 0; j<tabs.length; j++){ 
-                  if (tabs[j].url == page_url){
-                      chrome.tabs.update(tabs[j].id, {selected: true});
-                      chrome.windows.update(window_list[i].id,{focused: true});
-                      windowCheckFlag = false;
-                      break;
-                  }
+          for (var i = 0; i < window_list.length; i++) {
+            var tabs = window_list[i].tabs;
+            for (var j = 0; j < tabs.length; j++) {
+              if (tabs[j].url == page_url) {
+                chrome.tabs.update(tabs[j].id, { selected: true });
+                chrome.windows.update(window_list[i].id, { focused: true });
+                windowCheckFlag = false;
+                break;
               }
+            }
           }
-          
+
           //if it can't find a window, it will create it
-          if (windowCheckFlag){ 
+          if (windowCheckFlag) {
             window.open(`${base_url}${id}`, "_blank");
           }
-  
-      });
-
-      }
-      else {
-        if (!deleteVisible)
-          assignmentReleased();
-        else
-          resetSlideDelete()
+        });
+      } else {
+        if (!deleteVisible) assignmentReleased();
+        else resetSlideDelete();
       }
     });
 
@@ -201,16 +194,26 @@ getAssignments().then((sorted_assignments) => {
           alert("Assignment has been removed");
           assignment_div_wrapper.style.display = "none";
         });
+        //clear the alarms that are associated with the deleted assignment
+        chrome.alarms.clear(`${id}24`, (wasCleared) => {
+          if (wasCleared) {
+            console.log(`Alarm: ${id}24 was cleared.`);
+          }
+        });
+        chrome.alarms.clear(`${id}12`, (wasCleared) => {
+          if (wasCleared) {
+            console.log(`Alarm: ${id}12 was cleared.`);
+          }
+        });
+        chrome.alarms.clear(`${id}01`, (wasCleared) => {
+          if (wasCleared) {
+            console.log(`Alarm: ${id}01 was cleared`);
+          }
+        });
       }
     });
 
-
     i++;
   }
-
 });
-
- 
-
-
 
