@@ -115,11 +115,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
           if (reminders.twelve_hours_before > 0) {
             chrome.alarms.create(`${data}12`, { delayInMinutes: reminders.twelve_hours_before });
           }
+          if (reminders.twelve_hours_before > 0) {
+            chrome.alarms.create(`${data}06`, { delayInMinutes: reminders.six_hours_before });
+          }
+          if (reminders.twelve_hours_before > 0) {
+            chrome.alarms.create(`${data}03`, { delayInMinutes: reminders.three_hours_before });
+          }
           if (reminders.one_hour_before > 0) {
             chrome.alarms.create(`${data}01`, { delayInMinutes: reminders.one_hour_before });
           }
 
-          //uncomment below to test the notification functionality
+          //uncomment below to test the notification functionality (which will fire in 1 minute)
         //   chrome.alarms.create(`${data}10`,{delayInMinutes:1});
       
           // Respond to the content script to acknowledge that the message was received
