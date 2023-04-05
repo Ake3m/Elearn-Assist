@@ -59,6 +59,7 @@ The current notification scheme is set to remind users, 24 hours, 12 hours, 6 ho
 
 ### Additional Notification
 When you open the extension, you'll also receive a notification with the number of assignments you have due on that day (If any).
+
 ![image](https://user-images.githubusercontent.com/25711110/230138930-4d1cd008-fbc2-47f9-aa29-88f47a2aa933.png)
 
 ## Functionality and Features that has been added so far
