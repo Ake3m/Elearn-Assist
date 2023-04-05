@@ -2,8 +2,6 @@
     margin:0;
     padding:0;
 
-    transition: all .3s ease-out;
-
     --text-color:black;
     color:var(--text-color);
 
