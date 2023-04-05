@@ -53,7 +53,12 @@ Dark Mode can be toggled on and off by clicking the icon in the top right corner
 
 
 ## Notifications
-The current notification scheme is set to remind users, 24 hours, 12 hours and 1 hour before their tracked assignment is due. The notification will look as follows:
+The current notification scheme is set to remind users, 24 hours, 12 hours, 6 hours, 3 hours and 1 hour before their tracked assignment is due. The notification will look as follows:
+
+### Additional Notification
+When you open the extension, you'll also receive a notification with the number of assignments you have due on that day (If any).
+![image](https://user-images.githubusercontent.com/25711110/230138930-4d1cd008-fbc2-47f9-aa29-88f47a2aa933.png)
+
 
 ![image](https://user-images.githubusercontent.com/25711110/229331506-0ebf5a33-301e-4d15-bc94-a3b279b5a47a.png)
 
