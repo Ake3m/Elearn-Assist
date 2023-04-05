@@ -46,6 +46,11 @@ If you have completed an assignment and you no longer want to receive notificati
 
 ![image](https://user-images.githubusercontent.com/25711110/229470567-ce1f7a89-5efb-417a-ab09-ff875c76e588.png)
 
+### Dark Mode
+Dark Mode can be toggled on and off by clicking the icon in the top right corner.
+![image](https://user-images.githubusercontent.com/25711110/229975925-c0bc131d-918e-4d45-80eb-89b02ce4029d.png)
+
+
 
 ## Notifications
 The current notification scheme is set to remind users, 24 hours, 12 hours and 1 hour before their tracked assignment is due. The notification will look as follows:
@@ -64,11 +69,10 @@ The current notification scheme is set to remind users, 24 hours, 12 hours and 1
 - Manually delete an assignment from the Graphical User Interface. (Slide in order to delete)
 - Provide the user with a notification when the due date for an assignment draws near (Currently reminds users 24 hours, 12 hours and 1 hour before the due date).
 - Once an assignment is deleted, the alarms also need to be deleted.
-
+- Dark Mode added
 ## Functionality and Features that need to be added (TODO)
 - Make an options page to allow user's to configure notification settings, such as when they should be notified (eg. 2 days before, 1 day before, 5 hours before, etc) as well as notification frequency. (May or may not do)
 - Implement a downdown timer for each assignment to display in the Graphical User Interface. (May or may not do)
 - Group each assignment by course name and display them in sections (May or may not do)
 - Multi-language support?
-- Dark Mode?
 - Any other feture that might be helpful. 
