@@ -76,21 +76,22 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 //alarm listener
 chrome.alarms.onAlarm.addListener((alarm)=>{
-    console.log(alarm["name"]);
-    let assignment_name=alarm["name"].substring(0,alarm["name"].length-2);
+    let assignment_ID=alarm["name"].substring(0,alarm["name"].length-2);
     let assignment_hour=parseInt(alarm["name"].substring(alarm["name"].length-2));
-    console.log(assignment_name);
-    console.log(assignment_hour);
-    let message=`${assignment_name} is due in `;
-    if(assignment_hour >1)
-    {
-        message+=`${assignment_hour} hours`
-    }
-    else{
-        message+=`${assignment_hour} hour`
-    }
-    console.log(message);
-    chrome.notifications.create({
+    //get the info from storage since I changed the naming convention for the alarm
+    chrome.storage.local.get(assignment_ID).then((result)=>{
+        const assignment=JSON.parse(result[assignment_ID]);
+        const assignment_name=assignment["name_of_assignment"];
+        let message=`${assignment_name} is due in `;
+        if(assignment_hour >1)
+        {
+            message+=`${assignment_hour} hours`;
+        }
+        else{
+            message+=`${assignment_hour} hour`;
+        }
+        console.log(message);
+        chrome.notifications.create({
         type:'basic',
         iconUrl:'images/ndhu-logo.png',
         title:'Assignment Assistant',
@@ -98,6 +99,7 @@ chrome.alarms.onAlarm.addListener((alarm)=>{
         buttons:[{title:'Dismiss'}],
         priority:0
     })
+    });
 })
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
