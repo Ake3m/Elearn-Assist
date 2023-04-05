@@ -40,6 +40,37 @@ chrome.action.onClicked.addListener(async (tab) => {
         }
     });
 
+    //function to check if there are assignments due today
+    const checkToday=async ()=>{
+        const today=new Date();
+        let today_count=0;
+        chrome.storage.local.get(null,(assignments)=>{
+            for(let id in assignments)
+            {
+                let assignment_object=JSON.parse(assignments[id]);
+                const temp_date=new Date(`${assignment_object["due_date"]}, ${assignment_object["due_time"]}`);
+                if(today.toDateString()===temp_date.toDateString()){
+                    today_count++;
+                }
+            }
+
+            //if there are assignments due today, notify the user
+            if(today_count>=1)
+            {
+                let messge= today_count===1?`You have ${today_count} assignment due today.`:`You have ${today_count} assignments due today.`;
+                chrome.notifications.create({
+                type:'basic',
+                iconUrl:'images/ndhu-logo.png',
+                title:'Assignment Assistant',
+                message:messge,
+                buttons:[{title:'Dismiss'}],
+                priority:0
+            })
+            }
+        });
+        
+    }
+
     //checks all windows tabs to see if the pop.html url is active in any of them 
     chrome.windows.getAll({populate : true}, function (window_list) {
         var windowCheckFlag = true;
@@ -62,6 +93,7 @@ chrome.action.onClicked.addListener(async (tab) => {
                 width: 800,
                 height: 600,
             });
+            checkToday();
         }
 
     });
