@@ -5,6 +5,8 @@ let date_flag = true;
 let due_date_found = false;
 let one_day_before=0;
 let twelve_hours_before=0;
+let six_hours_before=0;
+let three_hours_before=0;
 let one_hour_before=0;
 
 //DOM objects
@@ -58,7 +60,9 @@ newButton.addEventListener("click", () => {
         
         //gets the minutes for 1 day before, 12 hours before and 1 hour before.
         one_day_before=diffInMinutes-1440;//1140 minutes in a day
-        twelve_hours_before=diffInMinutes-720;//720 minutes in 12 hours
+        twelve_hours_before=diffInMinutes-720 //720 minutes in 12 hours
+        six_hours_before=diffInMinutes-360;//360 minutes in 6 hours
+        three_hours_before=diffInMinutes-180;//180 minutes in 3 hours
         one_hour_before=diffInMinutes-60; //60 minutes in an hour
 
         if (today > formatted_deadline_date) {
@@ -95,7 +99,7 @@ newButton.addEventListener("click", () => {
               console.log("Data should be stored");
             });
             //adds alarms to create notification in the background.js at a specific time.
-            chrome.runtime.sendMessage({type:"NEW_ASSIGNMENT", data:currentAssignment, reminders:{one_day_before,twelve_hours_before,one_hour_before}});
+            chrome.runtime.sendMessage({type:"NEW_ASSIGNMENT", data:currentAssignment, reminders:{one_day_before,twelve_hours_before,six_hours_before,three_hours_before,one_hour_before}});
             alert("Assignment Tracked Sucessfully.");
         }
       });
