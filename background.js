@@ -60,7 +60,7 @@ chrome.action.onClicked.addListener(async (tab) => {
                 let messge= today_count===1?`You have ${today_count} assignment due today.`:`You have ${today_count} assignments due today.`;
                 chrome.notifications.create({
                 type:'basic',
-                iconUrl:'images/ndhu-logo.png',
+                iconUrl:'images/elearn-assist-logo.png',
                 title:'Assignment Assistant',
                 message:messge,
                 buttons:[{title:'Dismiss'}],
@@ -125,7 +125,7 @@ chrome.alarms.onAlarm.addListener((alarm)=>{
         console.log(message);
         chrome.notifications.create({
         type:'basic',
-        iconUrl:'images/ndhu-logo.png',
+        iconUrl:'images/elearn-assist-logo.png',
         title:'Assignment Assistant',
         message:message,
         buttons:[{title:'Dismiss'}],
