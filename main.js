@@ -62,7 +62,7 @@ getAssignments().then((sorted_assignments) => {
     let assignment = sorted_assignments[i].data;
 
     let assignmentObj = JSON.parse(assignment); //converts the JSON to object;
-    console.log(assignmentObj);
+    // console.log(assignmentObj);
     //creating html elements for the object properties
     let assignment_div_wrapper = document.createElement("div");
     let assignment_div_slider = document.createElement("div");
@@ -200,7 +200,7 @@ getAssignments().then((sorted_assignments) => {
     //temporary delete functionality
     delete_button.addEventListener("click", (e) => {
       e.preventDefault();
-      console.dir(e);
+      // console.dir(e);
       if (confirm("Are you sure you want to delete this assignment?")) {
         chrome.storage.local.remove(id, () => {
           alert("Assignment has been removed");
@@ -215,6 +215,16 @@ getAssignments().then((sorted_assignments) => {
         chrome.alarms.clear(`${id}12`, (wasCleared) => {
           if (wasCleared) {
             console.log(`Alarm: ${id}12 was cleared.`);
+          }
+        });
+        chrome.alarms.clear(`${id}06`, (wasCleared) => {
+          if (wasCleared) {
+            console.log(`Alarm: ${id}06 was cleared.`);
+          }
+        });
+        chrome.alarms.clear(`${id}03`, (wasCleared) => {
+          if (wasCleared) {
+            console.log(`Alarm: ${id}03 was cleared.`);
           }
         });
         chrome.alarms.clear(`${id}01`, (wasCleared) => {

@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { type, assignmentID } = request;
   if (type === "NEW") {
     currentAssignment = assignmentID;
-    console.log(currentAssignment);
+    // console.log(currentAssignment);
   }
 });
 
@@ -34,7 +34,7 @@ newButton.addEventListener("click", () => {
   //get course name
   let course_name = nav_links[1].textContent;
   course_name = course_name.substring(5).trim();
-  console.log(course_name);
+  // console.log(course_name);
   const rows = document.querySelectorAll("tr");
 
   //get the due date
@@ -43,7 +43,7 @@ newButton.addEventListener("click", () => {
       if (row.children[0].textContent.includes("Due date")) {
         due_date_found = true;
         let due_date = row.children[1].textContent;
-        console.log(due_date);
+        // console.log(due_date);
         // let [day, date, time] = due_date.split(',');
         const [day, date, time] = due_date.split(",").map((word) => {
           return word.trim();
@@ -54,7 +54,7 @@ newButton.addEventListener("click", () => {
         const today = new Date();
         const formatted_deadline_date = new Date(date_and_time);
 
-        console.log(today.getTime());
+        // console.log(today.getTime());
         const difference_in_milliseconds=formatted_deadline_date.getTime()-today.getTime(); //gets the difference in time in milliseconds
         const diffInMinutes=difference_in_milliseconds/60000; //converts it to minutes
         
@@ -81,26 +81,28 @@ newButton.addEventListener("click", () => {
   }
 
   if (due_date_found) {
-    console.log(newAssignment);
+    // console.log(newAssignment);
     //convert the object to json
     const assignmentJson = JSON.stringify(newAssignment);
-    console.log(assignmentJson);
+    // console.log(assignmentJson);
 
     if (date_flag) {
       //check if assignment is already in storage
       chrome.storage.local.get(currentAssignment).then((result) => {
         if (result[currentAssignment]) {
-          console.log("Data already stored");
+          // console.log("Data already stored");
+          alert("Assignment already tracked");
         } else {
           //if not already in storage, adds it to storage
           chrome.storage.local
             .set({ [currentAssignment]: assignmentJson })
             .then(() => {
-              console.log("Data should be stored");
+              // console.log("Data should be stored");
+              alert("Assignment Tracked Sucessfully.");
             });
             //adds alarms to create notification in the background.js at a specific time.
             chrome.runtime.sendMessage({type:"NEW_ASSIGNMENT", data:currentAssignment, reminders:{one_day_before,twelve_hours_before,six_hours_before,three_hours_before,one_hour_before}});
-            alert("Assignment Tracked Sucessfully.");
+           
         }
       });
     } else {

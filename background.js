@@ -122,7 +122,7 @@ chrome.alarms.onAlarm.addListener((alarm)=>{
         else{
             message+=`${assignment_hour} hour`;
         }
-        console.log(message);
+        // console.log(message);
         chrome.notifications.create({
         type:'basic',
         iconUrl:'images/elearn-assist-logo.png',
@@ -138,8 +138,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     if(message.type==="NEW_ASSIGNMENT")
     {
         const {data, reminders}=message;
-        console.log(data);
-        console.log(reminders);
+        // console.log(data);
+        // console.log(reminders);
 
         if (reminders.one_day_before > 0) {
             chrome.alarms.create(`${data}24`, { delayInMinutes: reminders.one_day_before });
@@ -161,7 +161,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
         //   chrome.alarms.create(`${data}10`,{delayInMinutes:1});
       
           // Respond to the content script to acknowledge that the message was received
-          console.log("New assignment received and alarms created");
+        //   console.log("New assignment received and alarms created");
           sendResponse("New assignment received and alarms created.");
     }
 })
@@ -170,7 +170,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
 //in the event the storage object is changed, then it should automatically update the GUI
 chrome.storage.onChanged.addListener((changes, areaName)=>{
     const changedAssignmentID=Object.keys(changes)[0];
-    console.log(changedAssignmentID);
+    // console.log(changedAssignmentID);
     if(changes[changedAssignmentID].newValue)//if an object with this key exists, then something was added to storage
     {
         //pass message to main.js to update the display
