@@ -36,7 +36,8 @@ After:
 Once tracked, the assignment will appear in the extension's popup user interface; that can be accessed by clicking the icon under the extensions dropdown (for convenience, pin the extension for easy access). From this interface, the user can see all their tracked assignments, delete tracked assignments to remove it from the list. As mentioned before, any assignment that is tracked here would issue a notification to the user once the deadline is near. 
 An example of this can be seen below:
 
-![image](https://user-images.githubusercontent.com/25711110/229470329-cf673fa8-01a2-4c21-a41e-bbc6e20ffc9b.png)
+![image](https://user-images.githubusercontent.com/25711110/230404236-f5f8e017-6e4f-40d4-b489-c4a00f9f9bc0.png)
+
 
 ### Convenient Assignment Uploading
 Tracked assignments offer convenience in the sense that with a single click, you will be taken to that particular assignment's upload page.
@@ -44,23 +45,26 @@ Tracked assignments offer convenience in the sense that with a single click, you
 ### Completing or Deleting Assignments
 If you have completed an assignment and you no longer want to receive notifications regarding it, you can delete the completed assignment from the list. To do so, gently swipe to the left with your mouse which will reveal a delete button. Press the delete button in order to remove the assignment from the list. 
 
-![image](https://user-images.githubusercontent.com/25711110/229470567-ce1f7a89-5efb-417a-ab09-ff875c76e588.png)
+![image](https://user-images.githubusercontent.com/25711110/230404463-17bee67e-3306-41d8-9ff6-bc6ff0900b06.png)
+
 
 ### Dark Mode
 Dark Mode can be toggled on and off by clicking the icon in the top right corner.
-![image](https://user-images.githubusercontent.com/25711110/229975925-c0bc131d-918e-4d45-80eb-89b02ce4029d.png)
 
+![image](https://user-images.githubusercontent.com/25711110/230404611-0428e062-0e69-475e-9322-732c2f3a7bc2.png)
 
 
 ## Notifications
 The current notification scheme is set to remind users, 24 hours, 12 hours, 6 hours, 3 hours and 1 hour before their tracked assignment is due. The notification will look as follows:
 
-![image](https://user-images.githubusercontent.com/25711110/229331506-0ebf5a33-301e-4d15-bc94-a3b279b5a47a.png)
+![image](https://user-images.githubusercontent.com/25711110/230405708-f42b1202-0afb-48a8-a4f0-0abd56fa3f16.png)
+
 
 ### Additional Notification
 When you open the extension, you'll also receive a notification with the number of assignments you have due on that day (If any).
 
-![image](https://user-images.githubusercontent.com/25711110/230138930-4d1cd008-fbc2-47f9-aa29-88f47a2aa933.png)
+![image](https://user-images.githubusercontent.com/25711110/230406483-588b1747-7b3d-48df-a0c0-004ba5adc142.png)
+
 
 ## Functionality and Features that has been added so far
 - Make button appear in the [NDHU Elearning](http://www.elearn.ndhu.edu.tw/moodle/index.php?lang=en_utf8) website's assignment pages.
